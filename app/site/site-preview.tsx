@@ -1,246 +1,378 @@
+"use client"
+
+import type React from "react"
+
 import Image from "next/image"
+import { MapPin, Users, Bed, Bath, Home, Mail, Phone, X, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { MountainIcon } from "@/components/ui/mountain-icon"
+import { useState } from "react"
 
-export default function SitePreview() {
+interface Room {
+  id: string
+  name: string
+  description: string
+  images: string[]
+  display_order: number | null
+}
+
+interface SitePreviewProps {
+  siteName: string
+  siteDescription: string
+  rooms: Room[]
+}
+
+export default function SitePreview({ siteName, siteDescription, rooms }: SitePreviewProps) {
+  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const openCarousel = (room: Room) => {
+    setSelectedRoom(room)
+    setCurrentImageIndex(0)
+  }
+
+  const closeCarousel = () => {
+    setSelectedRoom(null)
+    setCurrentImageIndex(0)
+  }
+
+  const nextImage = () => {
+    if (selectedRoom && selectedRoom.images.length > 1) {
+      setCurrentImageIndex((prev) => (prev + 1) % selectedRoom.images.length)
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedRoom && selectedRoom.images.length > 1) {
+      setCurrentImageIndex((prev) => (prev - 1 + selectedRoom.images.length) % selectedRoom.images.length)
+    }
+  }
+
+  const RoomCard = ({
+    room,
+    icon,
+  }: {
+    room: Room
+    icon: React.ReactNode
+  }) => {
+    const hasImages = room.images && room.images.length > 0
+
+    return (
+      <Card className="shadow-lg rounded-xl overflow-hidden transition-transform duration-300 hover:scale-105 bg-white text-earthy-950">
+        <CardContent className="p-0">
+          {hasImages && room.images[0] ? (
+            <Image
+              src={room.images[0] || "/placeholder.svg"}
+              alt={room.name}
+              width={400}
+              height={200}
+              className="w-full h-48 object-cover rounded-t-xl mb-4"
+            />
+          ) : (
+            <div className="w-full h-48 bg-earthy-200 rounded-t-xl flex items-center justify-center mb-4">
+              <div className="text-center text-earthy-700">
+                {icon}
+                <p className="text-sm mt-2">{room.name}</p>
+              </div>
+            </div>
+          )}
+          <div className="p-6">
+            <h4 className="font-semibold text-earthy-950 mb-2 text-lg">{room.name}</h4>
+            <p className="text-earthy-700 text-sm mb-4">{room.description}</p>
+            {hasImages && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => openCarousel(room)}
+                className="w-full border-earthy-300 text-earthy-900 hover:bg-earthy-100 hover:text-earthy-950"
+              >
+                See More ({room.images.length} photos)
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  // Separate rooms into categories (e.g., Exterior, Interior - Floor 1, Interior - Floor 2)
+  // This is a simplified categorization. In a real app, you'd have a more robust way to categorize rooms.
+  const exteriorRooms = rooms.filter(room => room.name.toLowerCase().includes("yard") || room.name.toLowerCase().includes("parking"))
+  const floor1Rooms = rooms.filter(room => room.name.toLowerCase().includes("living") || room.name.toLowerCase().includes("dining") || room.name.toLowerCase().includes("kitchen") || room.name.toLowerCase().includes("bedroom 1") || room.name.toLowerCase().includes("bedroom 2") || room.name.toLowerCase().includes("bathroom 2"))
+  const floor2Rooms = rooms.filter(room => room.name.toLowerCase().includes("bedroom 3") || room.name.toLowerCase().includes("bedroom 4") || room.name.toLowerCase().includes("bedroom 5") || room.name.toLowerCase().includes("bathroom 3"))
+
+
   return (
-    <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-14 flex items-center bg-background">
-        <Link href="#" className="flex items-center justify-center" prefetch={false}>
-          <MountainIcon className="h-6 w-6 text-primary" />
-          <span className="sr-only">open-bnb</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Features
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Pricing
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Contact
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            Sign In
-          </Link>
-        </nav>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-background">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none text-foreground">
-                    Create a stunning vacation rental website in minutes.
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    open-bnb is the easiest way to build a professional website for your vacation rental. No coding
-                    required.
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Get Started
-                  </Link>
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
-              <div className="relative w-full h-full">
-                <Image
-                  src="/images/herosite.png"
-                  width="550"
-                  height="550"
-                  alt="Hero"
-                  className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square animate-float"
-                />
-              </div>
+    <div className="min-h-screen bg-earthy-50">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full bg-earthy-50/95 backdrop-blur-sm border-b z-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-2">
+              <Home className="h-6 w-6 text-forest-600" />
+              <span className="text-lg font-semibold text-earthy-950">{siteName}</span>
+            </div>
+            <div className="flex space-x-8">
+              <a href="#contact" className="text-earthy-700 hover:text-forest-600 transition-colors">
+                Contact
+              </a>
+              <a href="#availability" className="text-earthy-700 hover:text-forest-600 transition-colors">
+                Availability
+              </a>
             </div>
           </div>
-        </section>
+        </div>
+      </nav>
 
-        <section id="features" className="w-full py-16 md:py-24 lg:py-32 bg-secondary">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-6 text-center">
-              <div className="space-y-4">
-                <div className="inline-block rounded-lg bg-primary px-4 py-1 text-sm font-semibold text-primary-foreground">
-                  Key Features
-                </div>
-                <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-foreground">
-                  Everything you need to manage your rental.
-                </h2>
-                <p className="max-w-[900px] text-lg text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  From stunning photo galleries to seamless booking and payment processing, open-bnb has you covered.
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl items-center gap-10 py-16 lg:grid-cols-2 lg:gap-16">
+      {/* Carousel Modal */}
+      {selectedRoom && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl w-full">
+            <button onClick={closeCarousel} className="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+              <X className="h-8 w-8" />
+            </button>
+
+            <div className="relative">
               <Image
-                src="/images/roomshowcase.png"
-                width="550"
-                height="310"
-                alt="Feature"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last shadow-lg"
+                src={selectedRoom.images[currentImageIndex] || "/placeholder.svg"}
+                alt={`${selectedRoom.name} - Image ${currentImageIndex + 1}`}
+                width={800}
+                height={600}
+                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
               />
-              <div className="flex flex-col justify-center space-y-6">
-                <ul className="grid gap-8">
-                  <li>
-                    <div className="grid gap-2">
-                      <h3 className="text-xl font-bold text-foreground">Beautiful Templates</h3>
-                      <p className="text-muted-foreground text-base">
-                        Choose from a variety of professionally designed templates to showcase your property.
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="grid gap-2">
-                      <h3 className="text-xl font-bold text-foreground">Easy Content Management</h3>
-                      <p className="text-muted-foreground text-base">
-                        Update your photos, descriptions, and availability with our intuitive dashboard.
-                      </p>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="grid gap-2">
-                      <h3 className="text-xl font-bold text-foreground">Seamless Booking</h3>
-                      <p className="text-muted-foreground text-base">
-                        Accept online bookings and payments with our secure and reliable system.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+
+              {selectedRoom.images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
+                  >
+                    <ChevronLeft className="h-8 w-8" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300"
+                  >
+                    <ChevronRight className="h-8 w-8" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            <div className="text-center mt-4 text-white">
+              <h3 className="text-xl font-semibold">{selectedRoom.name}</h3>
+              <p className="text-gray-300">{selectedRoom.description}</p>
+              {selectedRoom.images.length > 1 && (
+                <p className="text-sm text-gray-400 mt-2">
+                  {currentImageIndex + 1} of {selectedRoom.images.length}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Hero Section */}
+      <section className="pt-20 pb-12 md:pt-24 md:pb-20 bg-earthy-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 rounded-xl overflow-hidden shadow-xl">
+            <Image
+              src="/images/IMG_2559.jpeg"
+              alt="Hero Photo - Exterior View"
+              width={1400}
+              height={500}
+              className="w-full h-[500px] object-cover"
+            />
+          </div>
+          <div className="text-center mb-16">
+            <h1 className="text-5xl md:text-6xl font-extrabold text-earthy-950 mb-4 leading-tight">{siteName}</h1>
+            <div className="flex items-center justify-center mb-6 text-earthy-700">
+              <MapPin className="h-6 w-6 text-forest-600 mr-2" />
+              <span className="text-xl md:text-2xl font-medium">{siteDescription}</span>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-earthy-600 text-lg">
+              <div className="flex items-center">
+                <Users className="h-5 w-5 mr-2 text-forest-500" />
+                <span>10 guests</span>
+              </div>
+              <div className="flex items-center">
+                <Bed className="h-5 w-5 mr-2 text-forest-500" />
+                <span>5 bedrooms</span>
+              </div>
+              <div className="flex items-center">
+                <Bath className="h-5 w-5 mr-2 text-forest-500" />
+                <span>3 bathrooms</span>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="pricing" className="w-full py-16 md:py-24 lg:py-32 bg-background">
-          <div className="container grid items-center justify-center gap-8 px-4 text-center md:px-6">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-foreground">
-                Affordable pricing for every host.
-              </h2>
-              <p className="mx-auto max-w-[700px] text-lg text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Choose the plan that's right for you. Get started for free, and upgrade when you're ready.
-              </p>
+      {/* Exterior Section */}
+      {exteriorRooms.length > 0 && (
+        <section className="py-16 md:py-24 bg-earthy-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-extrabold text-earthy-950 text-center mb-16">Exterior</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {exteriorRooms.map((room) => (
+                <RoomCard key={room.id} room={room} icon={<Home className="h-8 w-8" />} />
+              ))}
             </div>
-            <div className="mx-auto w-full max-w-2xl space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col items-center justify-center rounded-lg border p-8 shadow-lg transition-transform duration-300 hover:scale-105">
-                  <div className="space-y-3 text-center">
-                    <h3 className="text-3xl font-bold text-foreground">Hobby</h3>
-                    <p className="text-muted-foreground text-base">For personal projects and small teams.</p>
-                  </div>
-                  <div className="my-8">
-                    <span className="text-5xl font-bold text-foreground">$19</span>
-                    <span className="text-muted-foreground text-xl">/mo</span>
-                  </div>
-                  <Button
-                    size="lg"
-                    className="w-full py-3 text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-                  >
-                    Get Started
-                  </Button>
-                </div>
-                <div className="flex flex-col items-center justify-center rounded-lg border p-8 shadow-lg transition-transform duration-300 hover:scale-105">
-                  <div className="space-y-3 text-center">
-                    <h3 className="text-3xl font-bold text-foreground">Pro</h3>
-                    <p className="text-muted-foreground text-base">For growing businesses and professional hosts.</p>
-                  </div>
-                  <div className="my-8">
-                    <span className="text-5xl font-bold text-foreground">$49</span>
-                    <span className="text-muted-foreground text-xl">/mo</span>
-                  </div>
-                  <Button
-                    size="lg"
-                    className="w-full py-3 text-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-                  >
-                    Get Started
-                  </Button>
+          </div>
+        </section>
+      )}
+
+      {/* Interior Section */}
+      {(floor1Rooms.length > 0 || floor2Rooms.length > 0) && (
+        <section className="py-16 md:py-24 bg-earthy-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-extrabold text-earthy-950 text-center mb-16">Interior</h2>
+            {floor1Rooms.length > 0 && (
+              <div className="mb-16">
+                <h3 className="text-3xl font-bold text-earthy-950 mb-10 text-center">Floor 1</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {floor1Rooms.map((room) => (
+                    <RoomCard
+                      key={room.id}
+                      room={room}
+                      icon={room.name.toLowerCase().includes("bedroom") ? <Bed className="h-8 w-8" /> : room.name.toLowerCase().includes("bathroom") ? <Bath className="h-8 w-8" /> : <Home className="h-8 w-8" />}
+                    />
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
+            {floor2Rooms.length > 0 && (
+              <div className="mt-16">
+                <h3 className="text-3xl font-bold text-earthy-950 mb-10 text-center">Floor 2</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {floor2Rooms.map((room) => (
+                    <RoomCard
+                      key={room.id}
+                      room={room}
+                      icon={room.name.toLowerCase().includes("bedroom") ? <Bed className="h-8 w-8" /> : room.name.toLowerCase().includes("bathroom") ? <Bath className="h-8 w-8" /> : <Home className="h-8 w-8" />}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
+      )}
 
-        <section id="contact" className="w-full py-16 md:py-24 lg:py-32 border-t bg-secondary">
-          <div className="container grid items-center justify-center gap-8 px-4 text-center md:px-6">
-            <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-foreground">Get in touch.</h2>
-              <p className="mx-auto max-w-[700px] text-lg text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Have a question or want to learn more? We'd love to hear from you.
-              </p>
+      {/* Contact Section */}
+      <section id="contact" className="bg-earthy-100 py-16 md:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-extrabold text-earthy-950 text-center mb-16">Contact Us</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="shadow-lg rounded-xl bg-white text-earthy-950">
+              <CardContent className="p-8 text-center">
+                <Mail className="h-16 w-16 text-forest-600 mx-auto mb-6" />
+                <h3 className="text-2xl font-semibold text-earthy-950 mb-3">Email</h3>
+                <p className="text-earthy-700 text-lg">drewatupper@gmail.com</p>
+                <p className="text-sm text-earthy-600 mt-3">We typically respond within 24 hours</p>
+              </CardContent>
+            </Card>
+            <Card className="shadow-lg rounded-xl bg-white text-earthy-950">
+              <CardContent className="p-8 text-center">
+                <Phone className="h-16 w-16 text-forest-600 mx-auto mb-6" />
+                <h3 className="text-2xl font-semibold text-earthy-950 mb-3">Phone</h3>
+                <p className="text-earthy-700 text-lg">(778) 676-8166</p>
+                <p className="text-sm text-earthy-600 mt-3">Call or text anytime</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* About Host Section */}
+      <section className="py-16 md:py-24 bg-earthy-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-extrabold text-earthy-950 text-center mb-16">About Your Host</h2>
+          <div className="flex flex-col md:flex-row items-center gap-12">
+            <div className="md:w-1/3 text-center">
+              <Image
+                src="/images/df7d5b28-53ca-44a1-bc64-3e532d198b42(1).jpg"
+                alt="Host Photo"
+                width={200}
+                height={200}
+                className="rounded-full mx-auto"
+              />
             </div>
-            <div className="mx-auto w-full max-w-md space-y-6">
-              <form className="flex flex-col gap-4">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                  className="max-w-lg flex-1 px-5 py-3 rounded-md border border-input focus:ring-2 focus:ring-primary focus:border-transparent bg-earth-input text-foreground"
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  required
-                  className="max-w-lg flex-1 px-5 py-3 rounded-md border border-input focus:ring-2 focus:ring-primary focus:border-transparent bg-earth-input text-foreground"
-                />
-                <textarea
-                  name="message"
-                  placeholder="Your Message"
-                  rows={4}
-                  required
-                  className="max-w-lg flex-1 px-5 py-3 rounded-md border border-input focus:ring-2 focus:ring-primary focus:border-transparent min-h-[120px] bg-earth-input text-foreground"
-                ></textarea>
-                <Button
-                  type="submit"
-                  className="w-full px-8 py-4 text-xl bg-primary hover:bg-primary/90 text-primary-foreground rounded-md transition-colors"
-                >
-                  Send Message
-                </Button>
-              </form>
-              <p className="text-sm text-muted-foreground">
-                Sign up to get notified when we launch.
-                <Link href="#" className="underline underline-offset-2 ml-1" prefetch={false}>
-                  Terms & Conditions
-                </Link>
+            <div className="md:w-2/3">
+              <h3 className="text-3xl font-semibold text-earthy-950 mb-4">Drew Tupper</h3>
+              <p className="text-earthy-700 mb-6 leading-relaxed">
+                I am an executive coach, husband, dad, enjoyer of pickleball, gardening, rock climbing and travelling. I love personal growth, good food, and beautiful places. I live on Vancouver Island. The best place in Canada. We have an old home in Victoria which I have lovingly restored. Check out the photos. I have lived and worked in Japan, Italy and the Caribbean (Grenada). I look forward to meeting you. Drew
               </p>
+              <Button
+                variant="outline"
+                asChild
+                className="px-8 py-3 text-lg bg-transparent border-earthy-300 text-earthy-900 hover:bg-earthy-100 hover:text-earthy-950"
+              >
+                <a href="https://drewtupper.com" target="_blank" rel="noopener noreferrer">
+                  Drew's Website
+                </a>
+              </Button>
             </div>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
 
-      <footer className="flex flex-col gap-4 sm:flex-row py-8 w-full shrink-0 items-center px-4 md:px-6 border-t bg-primary text-primary-foreground">
-        <p className="text-sm text-primary-foreground/80">&copy; 2024 open-bnb. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-6 sm:gap-8">
-          <Link
-            href="#"
-            className="text-sm hover:underline underline-offset-4 text-primary-foreground/80"
-            prefetch={false}
-          >
-            Terms of Service
-          </Link>
-          <Link
-            href="#"
-            className="text-sm hover:underline underline-offset-4 text-primary-foreground/80"
-            prefetch={false}
-          >
-            Privacy
-          </Link>
-        </nav>
+      {/* Availability Section */}
+      <section id="availability" className="py-16 md:py-24 bg-earthy-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-extrabold text-earthy-950 text-center mb-16">Check Availability</h2>
+          <p className="text-center text-earthy-700 mb-12 text-xl">
+            View our live availability calendar below. Contact us directly to book your stay.
+          </p>
+          <div className="flex justify-center">
+            <div className="w-full max-w-5xl">
+              <iframe
+                src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FVancouver&showPrint=0&src=MjBiY2FmYmQ0NDU5YmFkZDMwOWZiZWQxNWVlZGEyZGRjNDYwZGM1OWMwZGM4ZmQzMjNiZTBlMTdjYjBkYzRhYUBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23f6bf26"
+                style={{ border: "solid 1px #777" }}
+                width="100%"
+                height="600"
+                frameBorder="0"
+                scrolling="no"
+                className="rounded-lg shadow-xl"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Registration Details */}
+      <section className="bg-earthy-200 py-12 md:py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center text-base text-earthy-700 space-y-2">
+            <p>
+              <strong>STR Licence #:</strong> 00040814
+            </p>
+            <p>
+              <strong>Municipal Registration:</strong> 40814
+            </p>
+            <p>
+              <strong>Provincial Registration:</strong> H413738379
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-earthy-900 text-earthy-50 py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <Home className="h-8 w-8 text-forest-400" />
+            <span className="text-2xl font-bold">Cook St Village Craftsman Home</span>
+          </div>
+          <p className="text-earthy-300 mb-6 text-lg">Your perfect family getaway in Victoria's best neighbourhood</p>
+          <div className="text-earthy-300 space-y-2 text-base">
+            <p>Cook St Village, Victoria, BC</p>
+            <p>Email: drewatupper@gmail.com | Phone: (778) 676-8166</p>
+          </div>
+          <div className="border-t border-earthy-700 mt-10 pt-10 text-earthy-400 text-sm">
+            <p>&copy; 2025 Cook St Village Craftsman Home. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
   )

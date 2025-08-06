@@ -1,5 +1,3 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -54,19 +52,46 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Custom earthy colors
-        earth: {
-          50: "hsl(var(--earth-50))",
-          100: "hsl(var(--earth-100))",
-          200: "hsl(var(--earth-200))",
-          300: "hsl(var(--earth-300))",
-          400: "hsl(var(--earth-400))",
-          500: "hsl(var(--earth-500))",
-          600: "hsl(var(--earth-600))",
-          700: "hsl(var(--earth-700))",
-          800: "hsl(var(--earth-800))",
-          900: "hsl(var(--earth-900))",
-          input: "hsl(var(--earth-input))", // For form inputs
+        // New "natury" colors
+        earthy: {
+          50: "hsl(30, 100%, 98%)",
+          100: "hsl(30, 100%, 95%)",
+          200: "hsl(30, 100%, 90%)",
+          300: "hsl(30, 100%, 80%)",
+          400: "hsl(30, 100%, 60%)",
+          500: "hsl(30, 100%, 40%)", // Main earthy tone
+          600: "hsl(30, 100%, 30%)",
+          700: "hsl(30, 100%, 20%)",
+          800: "hsl(30, 100%, 15%)",
+          900: "hsl(30, 100%, 10%)",
+          950: "hsl(30, 100%, 5%)",
+          input: "hsl(30, 100%, 95%)", // Very light beige input
+        },
+        forest: {
+          50: "hsl(120, 60%, 98%)",
+          100: "hsl(120, 60%, 95%)",
+          200: "hsl(120, 60%, 90%)",
+          300: "hsl(120, 60%, 80%)",
+          400: "hsl(120, 60%, 60%)",
+          500: "hsl(120, 60%, 40%)", // Main forest green
+          600: "hsl(120, 60%, 30%)",
+          700: "hsl(120, 60%, 20%)",
+          800: "hsl(120, 60%, 15%)",
+          900: "hsl(120, 60%, 10%)",
+          950: "hsl(120, 60%, 5%)",
+        },
+        stone: {
+          50: "hsl(210, 20%, 98%)",
+          100: "hsl(210, 20%, 95%)",
+          200: "hsl(210, 20%, 90%)",
+          300: "hsl(210, 20%, 80%)",
+          400: "hsl(210, 20%, 60%)",
+          500: "hsl(210, 20%, 40%)", // Main stone grey
+          600: "hsl(210, 20%, 30%)",
+          700: "hsl(210, 20%, 20%)",
+          800: "hsl(210, 20%, 15%)",
+          900: "hsl(210, 20%, 10%)",
+          950: "hsl(210, 20%, 5%)",
         },
       },
       borderRadius: {

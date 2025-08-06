@@ -11,12 +11,12 @@ export async function POST(request: Request) {
     const message = formData.get("message") as string
 
     if (!name || !email || !message) {
-      return NextResponse.json({ success: false, message: "Please fill in all fields." }, { status: 400 })
+      return NextResponse.json({ error: "All fields are required." }, { status: 400 })
     }
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: "onboarding@resend.dev", // Replace with your verified Resend domain email
-      to: "emmetttupper1@gmail.com", // Recipient email address
+      to: "emmetttupper1@gmail.com", // Your target email address
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
@@ -26,12 +26,14 @@ export async function POST(request: Request) {
       `,
     })
 
-    return NextResponse.json({ success: true, message: "Your message has been sent successfully!" }, { status: 200 })
+    if (error) {
+      console.error("Error sending email:", error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, message: "Message sent successfully!" })
   } catch (error) {
-    console.error("Error sending email:", error)
-    return NextResponse.json(
-      { success: false, message: "Failed to send message. Please try again later." },
-      { status: 500 },
-    )
+    console.error("Error processing contact form:", error)
+    return NextResponse.json({ error: "Failed to send message." }, { status: 500 })
   }
 }
