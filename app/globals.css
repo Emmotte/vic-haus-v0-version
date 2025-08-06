@@ -4,153 +4,178 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* White */
-    --foreground: 30 100% 5%; /* Earthy 950 */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 30 100% 5%; /* Earthy 950 */
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 30 100% 5%; /* Earthy 950 */
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 120 60% 40%; /* Forest Green 500 */
-    --primary-foreground: 30 100% 98%; /* Earthy 50 */
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 30 100% 95%; /* Earthy 100 */
-    --secondary-foreground: 30 100% 5%; /* Earthy 950 */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 210 20% 90%; /* Stone 200 */
-    --muted-foreground: 210 20% 40%; /* Stone 500 */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 20% 90%; /* Stone 200 */
-    --accent-foreground: 210 20% 15%; /* Stone 800 */
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 210 20% 90%; /* Stone 200 */
-    --input: 210 20% 90%; /* Stone 200 */
-    --ring: 120 60% 40%; /* Primary color for focus rings */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
 
-    /* Earthy Palette */
-    --earthy-50: 30 100% 98%;
-    --earthy-100: 30 100% 95%;
-    --earthy-200: 30 100% 90%;
-    --earthy-300: 30 100% 80%;
-    --earthy-400: 30 100% 60%;
-    --earthy-500: 30 100% 40%;
-    --earthy-600: 30 100% 30%;
-    --earthy-700: 30 100% 20%;
-    --earthy-800: 30 100% 15%;
-    --earthy-900: 30 100% 10%;
-    --earthy-950: 30 100% 5%;
-    --earthy-input: 30 100% 95%; /* Very light beige input */
-
-    /* Forest Palette */
-    --forest-50: 120 60% 98%;
-    --forest-100: 120 60% 95%;
-    --forest-200: 120 60% 90%;
-    --forest-300: 120 60% 80%;
-    --forest-400: 120 60% 60%;
-    --forest-500: 120 60% 40%;
-    --forest-600: 120 60% 30%;
-    --forest-700: 120 60% 20%;
-    --forest-800: 120 60% 15%;
-    --forest-900: 120 60% 10%;
-    --forest-950: 120 60% 5%;
-
-    /* Stone Palette */
-    --stone-50: 210 20% 98%;
-    --stone-100: 210 20% 95%;
-    --stone-200: 210 20% 90%;
-    --stone-300: 210 20% 80%;
-    --stone-400: 210 20% 60%;
-    --stone-500: 210 20% 40%;
-    --stone-600: 210 20% 30%;
-    --stone-700: 210 20% 20%;
-    --stone-800: 210 20% 15%;
-    --stone-900: 210 20% 10%;
-    --stone-950: 210 20% 5%;
+    /* Theme-specific colors - Default (Light) */
+    --theme-primary-bg: 252 78% 60%; /* purple-500 */
+    --theme-primary-bg-gradient-from: 252 78% 60%; /* purple-500 */
+    --theme-primary-bg-gradient-to: 240 70% 50%; /* indigo-600 */
+    --theme-primary-text: 0 0% 100%; /* white */
+    --theme-secondary-bg: 210 40% 96.1%; /* gray-100 */
+    --theme-secondary-text: 222.2 84% 4.9%; /* foreground */
+    --theme-accent: 252 78% 60%; /* purple-500 */
+    --theme-card-bg: 0 0% 100%; /* white */
+    --theme-card-text: 222.2 84% 4.9%; /* foreground */
+    --theme-border: 214.3 31.8% 91.4%; /* gray-200 */
+    --theme-input-bg: 0 0% 100%; /* white */
+    --theme-input-text: 222.2 84% 4.9%; /* foreground */
+    --theme-input-border: 214.3 31.8% 91.4%; /* gray-300 */
+    --theme-button-bg: 0 0% 100%; /* white */
+    --theme-button-text: 252 78% 60%; /* purple-600 */
+    --theme-button-hover-bg: 210 40% 96.1%; /* gray-100 */
   }
 
   .dark {
-    --background: 30 100% 5%; /* Earthy 950 */
-    --foreground: 30 100% 98%; /* Earthy 50 */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 30 100% 10%; /* Earthy 900 */
-    --card-foreground: 30 100% 98%; /* Earthy 50 */
+    --card: 217.2 32.6% 17.5%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 30 100% 10%; /* Earthy 900 */
-    --popover-foreground: 30 100% 98%; /* Earthy 50 */
+    --popover: 217.2 32.6% 17.5%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 120 60% 60%; /* Lighter Forest Green for dark mode primary */
-    --primary-foreground: 30 100% 5%; /* Earthy 950 */
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 30 100% 10%; /* Earthy 900 */
-    --secondary-foreground: 30 100% 98%; /* Earthy 50 */
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 20% 15%; /* Stone 800 */
-    --muted-foreground: 210 20% 60%; /* Stone 400 */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 210 20% 15%; /* Stone 800 */
-    --accent-foreground: 210 20% 98%; /* Stone 50 */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 210 20% 15%; /* Stone 800 */
-    --input: 210 20% 15%; /* Stone 800 */
-    --ring: 120 60% 60%; /* Primary color for focus rings in dark mode */
+    --border: 215 27.9% 16.3%;
+    --input: 215 27.9% 16.3%;
+    --ring: 210 40% 98%;
 
-    /* Dark mode earthy palette adjustments */
-    --earthy-50: 30 100% 5%;
-    --earthy-100: 30 100% 10%;
-    --earthy-200: 30 100% 15%;
-    --earthy-300: 30 100% 20%;
-    --earthy-400: 30 100% 30%;
-    --earthy-500: 30 100% 40%;
-    --earthy-600: 30 100% 60%;
-    --earthy-700: 30 100% 80%;
-    --earthy-800: 30 100% 90%;
-    --earthy-900: 30 100% 95%;
-    --earthy-950: 30 100% 98%;
-    --earthy-input: 30 100% 10%; /* Darker beige input for dark mode */
-
-    /* Dark mode forest palette adjustments */
-    --forest-50: 120 60% 5%;
-    --forest-100: 120 60% 10%;
-    --forest-200: 120 60% 15%;
-    --forest-300: 120 60% 20%;
-    --forest-400: 120 60% 30%;
-    --forest-500: 120 60% 40%;
-    --forest-600: 120 60% 60%;
-    --forest-700: 120 60% 80%;
-    --forest-800: 120 60% 90%;
-    --forest-900: 120 60% 95%;
-    --forest-950: 120 60% 98%;
-
-    /* Dark mode stone palette adjustments */
-    --stone-50: 210 20% 5%;
-    --stone-100: 210 20% 10%;
-    --stone-200: 210 20% 15%;
-    --stone-300: 210 20% 20%;
-    --stone-400: 210 20% 30%;
-    --stone-500: 210 20% 40%;
-    --stone-600: 210 20% 60%;
-    --stone-700: 210 20% 80%;
-    --stone-800: 210 20% 90%;
-    --stone-900: 210 20% 95%;
-    --stone-950: 210 20% 98%;
+    /* Theme-specific colors - Default (Dark) */
+    --theme-primary-bg: 252 78% 40%; /* darker purple */
+    --theme-primary-bg-gradient-from: 252 78% 40%;
+    --theme-primary-bg-gradient-to: 240 70% 30%;
+    --theme-primary-text: 210 40% 98%; /* white */
+    --theme-secondary-bg: 217.2 32.6% 17.5%; /* gray-800 */
+    --theme-secondary-text: 210 40% 98%; /* foreground */
+    --theme-accent: 252 78% 40%;
+    --theme-card-bg: 217.2 32.6% 17.5%; /* gray-800 */
+    --theme-card-text: 210 40% 98%; /* foreground */
+    --theme-border: 215 27.9% 16.3%; /* gray-700 */
+    --theme-input-bg: 217.2 32.6% 17.5%; /* gray-800 */
+    --theme-input-text: 210 40% 98%; /* foreground */
+    --theme-input-border: 215 27.9% 16.3%; /* gray-700 */
+    --theme-button-bg: 210 40% 98%; /* white */
+    --theme-button-text: 252 78% 40%; /* darker purple */
+    --theme-button-hover-bg: 217.2 32.6% 17.5%; /* gray-800 */
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
+  /* Ocean Blue Theme */
+  html[data-theme='ocean-blue'] {
+    --theme-primary-bg: 210 90% 40%; /* deep blue */
+    --theme-primary-bg-gradient-from: 210 90% 40%;
+    --theme-primary-bg-gradient-to: 200 80% 50%; /* lighter blue */
+    --theme-primary-text: 0 0% 100%;
+    --theme-secondary-bg: 200 20% 95%; /* light blue-gray */
+    --theme-secondary-text: 210 80% 20%; /* dark blue */
+    --theme-accent: 20 90% 60%; /* orange accent */
+    --theme-card-bg: 0 0% 100%;
+    --theme-card-text: 210 80% 20%;
+    --theme-border: 200 20% 80%;
+    --theme-input-bg: 0 0% 100%;
+    --theme-input-text: 210 80% 20%;
+    --theme-input-border: 200 20% 80%;
+    --theme-button-bg: 210 90% 40%;
+    --theme-button-text: 0 0% 100%;
+    --theme-button-hover-bg: 200 20% 90%;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  html[data-theme='ocean-blue'].dark {
+    --theme-primary-bg: 210 90% 25%;
+    --theme-primary-bg-gradient-from: 210 90% 25%;
+    --theme-primary-bg-gradient-to: 200 80% 35%;
+    --theme-primary-text: 210 40% 98%;
+    --theme-secondary-bg: 210 30% 15%;
+    --theme-secondary-text: 210 40% 98%;
+    --theme-accent: 20 90% 40%;
+    --theme-card-bg: 210 30% 15%;
+    --theme-card-text: 210 40% 98%;
+    --theme-border: 210 20% 25%;
+    --theme-input-bg: 210 30% 15%;
+    --theme-input-text: 210 40% 98%;
+    --theme-input-border: 210 20% 25%;
+    --theme-button-bg: 210 40% 98%;
+    --theme-button-text: 210 90% 25%;
+    --theme-button-hover-bg: 210 30% 10%;
+  }
+
+  /* Forest Green Theme */
+  html[data-theme='forest-green'] {
+    --theme-primary-bg: 140 60% 30%; /* deep green */
+    --theme-primary-bg-gradient-from: 140 60% 30%;
+    --theme-primary-bg-gradient-to: 120 50% 40%; /* lighter green */
+    --theme-primary-text: 0 0% 100%;
+    --theme-secondary-bg: 120 10% 90%; /* light gray-green */
+    --theme-secondary-text: 140 60% 15%; /* dark green */
+    --theme-accent: 40 80% 60%; /* golden yellow */
+    --theme-card-bg: 0 0% 100%;
+    --theme-card-text: 140 60% 15%;
+    --theme-border: 120 10% 70%;
+    --theme-input-bg: 0 0% 100%;
+    --theme-input-text: 140 60% 15%;
+    --theme-input-border: 120 10% 70%;
+    --theme-button-bg: 140 60% 30%;
+    --theme-button-text: 0 0% 100%;
+    --theme-button-hover-bg: 120 10% 80%;
+  }
+
+  html[data-theme='forest-green'].dark {
+    --theme-primary-bg: 140 60% 15%;
+    --theme-primary-bg-gradient-from: 140 60% 15%;
+    --theme-primary-bg-gradient-to: 120 50% 25%;
+    --theme-primary-text: 210 40% 98%;
+    --theme-secondary-bg: 140 20% 10%;
+    --theme-secondary-text: 210 40% 98%;
+    --theme-accent: 40 80% 40%;
+    --theme-card-bg: 140 20% 10%;
+    --theme-card-text: 210 40% 98%;
+    --theme-border: 140 15% 20%;
+    --theme-input-bg: 140 20% 10%;
+    --theme-input-text: 210 40% 98%;
+    --theme-input-border: 140 15% 20%;
+    --theme-button-bg: 210 40% 98%;
+    --theme-button-text: 140 60% 15%;
+    --theme-button-hover-bg: 140 20% 5%;
   }
 }

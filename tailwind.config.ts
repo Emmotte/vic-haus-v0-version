@@ -1,13 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss"
+
+const config = {
   darkMode: ["class"],
-  content: [
-    "./pages/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./app/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
-    "*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}", "*.{js,ts,jsx,tsx,mdx}"],
   prefix: "",
   theme: {
     container: {
@@ -52,47 +47,23 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // New "natury" colors
-        earthy: {
-          50: "hsl(30, 100%, 98%)",
-          100: "hsl(30, 100%, 95%)",
-          200: "hsl(30, 100%, 90%)",
-          300: "hsl(30, 100%, 80%)",
-          400: "hsl(30, 100%, 60%)",
-          500: "hsl(30, 100%, 40%)", // Main earthy tone
-          600: "hsl(30, 100%, 30%)",
-          700: "hsl(30, 100%, 20%)",
-          800: "hsl(30, 100%, 15%)",
-          900: "hsl(30, 100%, 10%)",
-          950: "hsl(30, 100%, 5%)",
-          input: "hsl(30, 100%, 95%)", // Very light beige input
-        },
-        forest: {
-          50: "hsl(120, 60%, 98%)",
-          100: "hsl(120, 60%, 95%)",
-          200: "hsl(120, 60%, 90%)",
-          300: "hsl(120, 60%, 80%)",
-          400: "hsl(120, 60%, 60%)",
-          500: "hsl(120, 60%, 40%)", // Main forest green
-          600: "hsl(120, 60%, 30%)",
-          700: "hsl(120, 60%, 20%)",
-          800: "hsl(120, 60%, 15%)",
-          900: "hsl(120, 60%, 10%)",
-          950: "hsl(120, 60%, 5%)",
-        },
-        stone: {
-          50: "hsl(210, 20%, 98%)",
-          100: "hsl(210, 20%, 95%)",
-          200: "hsl(210, 20%, 90%)",
-          300: "hsl(210, 20%, 80%)",
-          400: "hsl(210, 20%, 60%)",
-          500: "hsl(210, 20%, 40%)", // Main stone grey
-          600: "hsl(210, 20%, 30%)",
-          700: "hsl(210, 20%, 20%)",
-          800: "hsl(210, 20%, 15%)",
-          900: "hsl(210, 20%, 10%)",
-          950: "hsl(210, 20%, 5%)",
-        },
+        // Custom theme colors
+        'theme-primary-bg': 'hsl(var(--theme-primary-bg))',
+        'theme-primary-bg-from': 'hsl(var(--theme-primary-bg-gradient-from))',
+        'theme-primary-bg-to': 'hsl(var(--theme-primary-bg-gradient-to))',
+        'theme-primary-text': 'hsl(var(--theme-primary-text))',
+        'theme-secondary-bg': 'hsl(var(--theme-secondary-bg))',
+        'theme-secondary-text': 'hsl(var(--theme-secondary-text))',
+        'theme-accent': 'hsl(var(--theme-accent))',
+        'theme-card-bg': 'hsl(var(--theme-card-bg))',
+        'theme-card-text': 'hsl(var(--theme-card-text))',
+        'theme-border': 'hsl(var(--theme-border))',
+        'theme-input-bg': 'hsl(var(--theme-input-bg))',
+        'theme-input-text': 'hsl(var(--theme-input-text))',
+        'theme-input-border': 'hsl(var(--theme-input-border))',
+        'theme-button-bg': 'hsl(var(--theme-button-bg))',
+        'theme-button-text': 'hsl(var(--theme-button-text))',
+        'theme-button-hover-bg': 'hsl(var(--theme-button-hover-bg))',
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -108,17 +79,14 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        float: "float 3s ease-in-out infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+} satisfies Config
+
+export default config

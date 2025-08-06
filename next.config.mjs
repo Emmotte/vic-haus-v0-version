@@ -8,10 +8,6 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['localhost'],
-  },
-  experimental: {
-    serverComponentsExternalPackages: [],
   },
 }
 
