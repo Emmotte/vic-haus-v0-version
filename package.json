@@ -36,6 +36,7 @@
     "@radix-ui/react-toggle": "latest",
     "@radix-ui/react-toggle-group": "latest",
     "@radix-ui/react-tooltip": "latest",
+    "@react-email/render": "latest",
     "@supabase/auth-helpers-nextjs": "latest",
     "@supabase/supabase-js": "^2.39.3",
     "class-variance-authority": "^0.7.1",
